@@ -128,7 +128,8 @@
   $("#post-message").click(function() {
     $("#postModal").modal("hide");
     var body = $(".message-body").val();
-    sendMessage(body);
+    var username = $(".username-input").val();
+    sendMessage(body, username);
   });
 
   /**

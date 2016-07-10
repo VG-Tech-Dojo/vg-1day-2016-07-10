@@ -64,13 +64,14 @@ function reloadMessages() {
  *
  * @param body
  */
-function sendMessage(body) {
+function sendMessage(body, username) {
     var success = function() {
         $(".message-body").val("");
+        $(".username-input").val("");
         reloadMessages();
     };
     var error = function() { console.log("error") };
-    (new API()).postMessage(body, success, error);
+    (new API()).postMessage(body, username, success, error);
 }
 
 /**
