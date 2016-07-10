@@ -7,17 +7,17 @@ import (
 	"net/url"
 	"math/rand"
 	"time"
-	"encoding/json"
-	"errors"
-	"io"
-	"io/ioutil"
-	"net/http"
-	"os"
-	"runtime"
-	"strconv"
 	"strings"
-	"time"
-	"github.com/jmoiron/jsonq"
+	// "strconv"
+	// "encoding/json"
+	// "errors"
+	// "io"
+	// "io/ioutil"
+	// "net/http"
+	// "os"
+	// "runtime"
+	// "strings"
+	// "github.com/jmoiron/jsonq"
 )
 
 type (
@@ -41,6 +41,11 @@ type (
 	// UranaiProcesser
 	//
 	UranaiProcesser struct {
+	}
+	
+	// ImageProcesser
+	//
+	ImageProcesser struct {
 	}
 
 	// TimelineProcesser
@@ -93,7 +98,9 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 }
 
 func (p *ImageProcesser) Process(msgIn *model.Message) *model.Message {
+	inputs := strings.Split(msgIn.Body, " ")
+	query := inputs[1]
 	imageurl := "https://pbs.twimg.com/profile_images/459921170251264000/ax4FMwXA.jpeg"
-	txt := imageurl
+	txt := imageurl + query
 	return &model.Message{Body: txt}
 }
