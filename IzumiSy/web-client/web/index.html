@@ -50,6 +50,12 @@
       <div class="modal-body">
         メッセージ
         <p><textarea class="form-control message-body" rows="3"></textarea></p>
+        <div>
+          <span>ユーザー名:</span>
+          <span class="username-field">
+            <input class="username-input" placeholder="John Doe" />
+          </span>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="post-message" class="btn btn-primary">投稿する</button>
@@ -122,7 +128,8 @@
   $("#post-message").click(function() {
     $("#postModal").modal("hide");
     var body = $(".message-body").val();
-    sendMessage(body);
+    var username = $(".username-input").val();
+    sendMessage(body, username);
   });
 
   /**
