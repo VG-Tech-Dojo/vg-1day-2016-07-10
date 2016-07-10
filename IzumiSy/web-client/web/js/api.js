@@ -44,7 +44,7 @@ class API {
             contentType: "application/json",
             data: JSON.stringify({
               body: body,
-              username: username
+              user_name: username
             })
         })
         .done(function(data) { success(); console.log(data) })
