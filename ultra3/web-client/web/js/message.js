@@ -9,6 +9,7 @@
  * @param data
  */
 function appendMessages(data) {
+    if (!data) { return }
     $("#message-container").empty();
     for ( var i = 0; i < data.length; i++ ) {
         var object = data[i];
@@ -24,7 +25,9 @@ function appendMessages(data) {
  */
 function appendMessage(message) {
     // Bodyをエスケープ
-    var escapeBody = $("<div/>").text(message.body).html();
+
+    _emojifiedText = emoji.replace_colons(message.body)
+    var escapeBody = $("<div/>").append(_emojifiedText).html();
     var messageHTML =
         '<div class="media">' +
             '<div class="media-body">' +
