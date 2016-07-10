@@ -9,6 +9,7 @@
  * @param data
  */
 function appendMessages(data) {
+
     $("#message-container").empty();
     for ( var i = 0; i < data.length; i++ ) {
         var object = data[i];
@@ -24,20 +25,48 @@ function appendMessages(data) {
  */
 function appendMessage(message) {
     // Bodyをエスケープ
-    var escapeBody = $("<div/>").text(message.body).html();
-    var messageHTML =
-        '<div class="media">' +
-            '<div class="media-body">' +
-                //'<span class="media-message-name">名無しさん</span>  ' +
-                //'<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
-                '<span class="media-message-body">' + escapeBody + '</span>' +
+    console.log(message);
+    var messageHTML = "";
+    var escapeBody = "http://farm6.staticflickr.com/5613/15634745431_af629b9374.jpg";
+    //var escapeBody = "aaaaaa";
+    //var escapeBody = $("<div/>").text(message.body).html();
+    var escapeDate = $("<div/>").text(message.created_at).html();
+    var escapeUser = $("<div/>").text(message.user_name).html();
+    //var escapeImage = $("<div/>").text(message.image).html();
+    //var escapeImage = "http://farm6.staticflickr.com/5613/15634745431_af629b9374.jpg";
+
+    if(escapeBody.match(/(http|ftp):\/\/.+/))
+    {
+        messageHTML += 
+            '<div class="media">' +
+                '<div class="media-body">' +
+                    '<span class="media-message-name">' + escapeUser + '</span>  ' +
+                    '<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
+                    '<span class="media-message-body"><img src="' + escapeBody + '" alt="image"></img></span>' +
+                '</div>' +
+                '<div class="media-right">' +
+                    '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
+                    '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>' +
+                '</div>' +
             '</div>' +
-            '<div class="media-right">' +
-                '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
-                '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>' +
+            '<hr>';
+    }
+    else
+    {
+        messageHTML +=
+            '<div class="media">' +
+                '<div class="media-body">' +
+                    '<span class="media-message-name">' + escapeUser + '</span>  ' +
+                    '<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
+                    '<span class="media-message-body">' + escapeBody + '</span>' +
+                '</div>' +
+                '<div class="media-right">' +
+                    '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
+                    '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>' +
+                '</div>' +
             '</div>' +
-        '</div>' +
-        '<hr>';
+            '<hr>';
+    }
 
     $("#message-container").append(messageHTML);
 }
@@ -58,13 +87,13 @@ function reloadMessages() {
  *
  * @param body
  */
-function sendMessage(body) {
+function sendMessage(body, user) {
     var success = function() {
         $(".message-body").val("");
         reloadMessages();
     };
     var error = function() { console.log("error") };
-    (new API()).postMessage(body, success, error);
+    (new API()).postMessage(body, user, success, error);
 }
 
 /**

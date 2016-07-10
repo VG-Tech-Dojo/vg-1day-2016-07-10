@@ -68,3 +68,11 @@ func NewUranaiBot(out chan model.Message) (b *bot) {
 	processor := &UranaiProcessor{}
 	return NewBot(checker, processor, out)
 }
+
+func NewWarikanBot(out chan model.Message) (b *bot) {
+	checker := &RegexpChecker{
+		Pattern: `^warikan`,
+	}
+	processor := &WarikanProcessor{}
+	return NewBot(checker, processor, out)
+}
