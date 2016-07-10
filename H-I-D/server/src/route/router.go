@@ -65,6 +65,11 @@ func prepareBot() chan model.Message {
 	b3 := bot.NewTimelineBot(p.Input)
 	go b3.Run()
 	broadcaster.EntryInput <- b3
+	
+	b4 := bot.NewUranaiBot(p.Input)
+	go b4.Run()
+	broadcaster.EntryInput <- b4
+	
 
 	return broadcaster.MsgInput
 }
