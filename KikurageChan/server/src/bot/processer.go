@@ -2,6 +2,8 @@ package bot
 
 import (
 	"fmt"
+	"time"
+	"math/rand"
 	"github.com/ChimeraCoder/anaconda"
 	"model"
 	"net/url"
@@ -25,6 +27,10 @@ type (
 		Name string
 	}
 
+	UranaiProcesser struct {
+
+	}
+
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
@@ -43,6 +49,18 @@ func (p *GreetProcesser) Process(msgIn *model.Message) *model.Message {
 
 func (p *TimelineProcesser) Init() {
 	p.Api = getTwitterApi()
+}
+
+func (*UranaiProcesser ) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+	random := rand.Intn(3)
+	text:= ""
+	switch random {
+	case 0: text = "大吉"
+	case 1: text = "吉"
+	case 2: text = "凶"
+	}
+	return &model.Message{Body: text}
 }
 
 func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
