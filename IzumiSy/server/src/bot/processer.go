@@ -56,7 +56,7 @@ func (p *WarikanProcessor) Process(msgIn *model.Message) *model.Message {
 		_result = fmt.Sprintf("一人%d円です", (_baseAmount / _division))
 
 	} else {
-		_result = "[Warikan] Error"
+		_result = "割り勘はできなそうですね"
 	}
 
 	return &model.Message{Body: _result}
