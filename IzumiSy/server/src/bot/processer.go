@@ -58,6 +58,7 @@ func (p *WarikanProcessor) Process(msgIn *model.Message) *model.Message {
 	} else {
 		_result = "[Warikan] Error"
 	}
+
 	return &model.Message{Body: _result}
 }
 
