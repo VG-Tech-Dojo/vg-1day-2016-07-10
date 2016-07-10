@@ -3,8 +3,10 @@ package bot
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
+	"math/rand"
 	"model"
 	"net/url"
+	"time"
 )
 
 type (
@@ -38,8 +40,20 @@ type (
 )
 
 func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
-	// Do something
-	return &model.Message{Body: "[bot] Uranai"}
+	rand.Seed(time.Now().UnixNano())
+
+	var _result string
+	switch rand.Intn(2) {
+	case 0:
+		_result = "大吉"
+	case 1:
+		_result = "吉"
+	case 2:
+	default:
+		_result = "凶"
+	}
+
+	return &model.Message{Body: _result}
 }
 
 func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
