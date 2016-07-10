@@ -30,6 +30,10 @@ type (
 		Name string
 	}
 
+	WarikanProcesser struct {
+		Name string
+	}
+
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
@@ -63,6 +67,19 @@ func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
 
 	return &model.Message{Body: txt}
 }
+
+
+func (p *WarikanProcesser) Process(msgIn *model.Message) *model.Message {
+	txt := "tst"
+
+	
+
+	return &model.Message{Body: txt}
+}
+
+
+
+//-----------
 
 func (p *TimelineProcesser) Init() {
 	p.Api = getTwitterApi()

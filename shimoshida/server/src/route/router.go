@@ -68,6 +68,12 @@ func prepareBot() chan model.Message {
 	go b4.Run()
 	broadcaster.EntryInput <- b4
 
+	b5 := bot.NewWarikanBot("warikan_bot", `^warikan`, p.Input)
+	go b5.Run()
+	broadcaster.EntryInput <- b5
+
+	//-------------------
+
 	b3 := bot.NewTimelineBot(p.Input)
 	go b3.Run()
 	broadcaster.EntryInput <- b3
