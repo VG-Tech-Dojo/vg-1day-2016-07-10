@@ -3,8 +3,10 @@ package bot
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
+	"math/rand"
 	"model"
 	"net/url"
+	"time"
 )
 
 type (
@@ -19,10 +21,15 @@ type (
 	EchoProcesser struct {
 	}
 
-	// Greetprocesser
+	// GreetProcesser
 	// 自身の名前で挨拶するProcesser
 	GreetProcesser struct {
 		Name string
+	}
+
+	// UranaiProcessor
+	// 占い用のProcessor
+	UranaiProcessor struct {
 	}
 
 	// TimelineProcesser
@@ -31,6 +38,23 @@ type (
 		Api *anaconda.TwitterApi
 	}
 )
+
+func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+
+	var _result string
+	switch rand.Intn(2) {
+	case 0:
+		_result = "大吉"
+	case 1:
+		_result = "吉"
+	case 2:
+	default:
+		_result = "凶"
+	}
+
+	return &model.Message{Body: _result}
+}
 
 func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 	return &model.Message{Body: "[echo] " + msgIn.Body}
