@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"model"
 	"net/url"
+	"strconv"
+	"strings"
 
 	"github.com/ChimeraCoder/anaconda"
 )
@@ -35,6 +37,9 @@ type (
 
 	UranaiProcesser struct {
 		Fortune []string
+	}
+
+	WarikanProcesser struct {
 	}
 )
 
@@ -70,4 +75,13 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
 	fortune := p.Fortune[rand.Intn(len(p.Fortune))]
 	return &model.Message{Body: fortune, UserName: "uranai bot"}
+}
+
+func (p *WarikanProcesser) Process(msgIn *model.Message) *model.Message {
+	info := strings.Fields(msgIn.Body)
+	value, _ := strconv.Atoi(info[1])
+	people, _ := strconv.Atoi(info[2])
+	money := value / people
+	text := fmt.Sprintf("一人%v円です", money)
+	return &model.Message{Body: text, UserName: "warikan bot"}
 }
