@@ -73,6 +73,6 @@ func NewImageBot(out chan model.Message) (b *bot) {
 	checker := &RegexpChecker{
 		Pattern: "^image",
 	}
-	processer := &UranaiProcesser{}
+	processer := &ImageProcesser{}
 	return NewBot(checker, processer, out)
 }

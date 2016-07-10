@@ -7,6 +7,17 @@ import (
 	"net/url"
 	"math/rand"
 	"time"
+	"encoding/json"
+	"errors"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"runtime"
+	"strconv"
+	"strings"
+	"time"
+	"github.com/jmoiron/jsonq"
 )
 
 type (
@@ -79,4 +90,10 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 
 	tweet := timeline[0]
 	return &model.Message{Body: fmt.Sprintf("[timeline:%s] %s", tweet.User.Name, tweet.Text)}
+}
+
+func (p *ImageProcesser) Process(msgIn *model.Message) *model.Message {
+	imageurl := "https://pbs.twimg.com/profile_images/459921170251264000/ax4FMwXA.jpeg"
+	txt := imageurl
+	return &model.Message{Body: txt}
 }
