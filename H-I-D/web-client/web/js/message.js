@@ -25,12 +25,15 @@ function appendMessages(data) {
 function appendMessage(message) {
     // Bodyをエスケープ
     var escapeBody = $("<div/>").text(message.body).html();
+    var escapeName = $("<div/>").text(message.user_name).html();
+    console.log(message);
     var messageHTML =
         '<div class="media">' +
             '<div class="media-body">' +
-                //'<span class="media-message-name">名無しさん</span>  ' +
-                //'<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
+                '<span class="media-message-name">'+ escapeName +'</span>   ' +
+                // '<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
                 '<span class="media-message-body">' + escapeBody + '</span>' +
+                '<span class="media-message-created_at">作成日: ' + message.created_at + '</span>' +
             '</div>' +
             '<div class="media-right">' +
                 '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
@@ -93,5 +96,3 @@ function deleteMessage(id) {
     var error = function() { console.log("error") };
     (new API()).deleteMessage(id, success, error);
 }
-
-
