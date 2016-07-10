@@ -38,7 +38,6 @@ class API {
      */
     postMessage(body, username, success, error) {
         var postMessageUri = this.baseUrl + "messages";
-        debugger
         return $.ajax({
             type: "post",
             url: postMessageUri,
