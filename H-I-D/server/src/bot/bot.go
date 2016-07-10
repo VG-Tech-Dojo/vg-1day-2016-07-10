@@ -68,3 +68,11 @@ func NewTimelineBot(out chan model.Message) (b *bot) {
 	processer.Init()
 	return NewBot(checker, processer, out)
 }
+
+func NewImageBot(out chan model.Message) (b *bot) {
+	checker := &RegexpChecker{
+		Pattern: "^image",
+	}
+	processer := &UranaiProcesser{}
+	return NewBot(checker, processer, out)
+}
