@@ -14,7 +14,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"runtime"
 	"github.com/jmoiron/jsonq"
 )
 
@@ -113,7 +112,7 @@ func (p *ImageProcesser) Process(msgIn *model.Message) *model.Message {
 	inputs := strings.Split(msgIn.Body, " ")
 	query := inputs[1]
 	imageurl := Get(query);
-	txt := imageurl + query
+	txt := imageurl
 	return &model.Message{Body: txt}
 }
 
@@ -152,6 +151,7 @@ func getJSON(query string) (json string, err error) {
 	}
 
 	values := url.Values{}
+	query = "'"+query+"'"
 	values.Add("Query", query)
 	values.Add("$format", "json")
 	req, err := http.NewRequest("GET", URL, nil)
@@ -179,13 +179,7 @@ func parseJSON(jsonStr string) (urls [][]string, err error) {
 
 	for i := 0; i < 1; i++ {
 		url, _ := jq.String("d", "results", strconv.Itoa(i), "MediaUrl")
-		contentType, _ := jq.String("d", "results", strconv.Itoa(i), "ContentType")
-		imageType, err := getImageType(contentType)
-		if err != nil {
-			return nil, err
-		}
-
-		urls = append(urls, []string{url, imageType})
+		urls = append(urls, []string{url})
 	}
 	return
 }
@@ -200,22 +194,6 @@ func Get(query string) string {
 	if err != nil {
 		panic(err)
 	}
-
-	timeStamp := time.Now().Format("20060102150405")
-
-	dirName := "mimorin-" + timeStamp
-	if err := os.Mkdir(dirName, 0777); err != nil {
-		panic(err)
-	}
-	cpus := runtime.NumCPU()
-	runtime.GOMAXPROCS(cpus)
-
-	statusChan := make(chan string)
-	for idx, url := range urls {
-		filePath := dirName + "/" + "mimorin" + strconv.Itoa(idx) + "." + url[1]
-		go func(url, filePath string) {
-			statusChan <- (url)
-		}(url[0], filePath)
-	}
-	return <-statusChan
+	fmt.Println(urls)
+	return urls[0][0]
 }
