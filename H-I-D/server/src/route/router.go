@@ -51,7 +51,7 @@ func prepareBot() chan model.Message {
 	p := bot.NewPoster(10)
 	go p.Run()
 
-	broadcaster := bot.NewBroadcaster()
+	broadcaster := bot.NewBroadcaster()  // 各botに値を送信する
 	go broadcaster.Run()
 
 	b1 := bot.NewGreetBot("simple_bot", `^hello`, p.Input)
