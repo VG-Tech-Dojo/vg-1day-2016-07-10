@@ -5,6 +5,8 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"model"
 	"net/url"
+	"math/rand"
+	"time"
 )
 
 type (
@@ -25,6 +27,9 @@ type (
 		Name string
 	}
 
+	UranaiProcesser struct {
+	}
+
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
@@ -38,6 +43,23 @@ func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 
 func (p *GreetProcesser) Process(msgIn *model.Message) *model.Message {
 	txt := "[greet] nice to meet you! my name is " + p.Name
+	return &model.Message{Body: txt}
+}
+
+func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+  rand := rand.Intn(4)
+	txt := "凶"
+	switch rand {
+	case 0:
+		txt = "大吉"
+	case 1:
+		txt = "中吉"
+	case 2:
+		txt = "吉"
+	case 3:
+		txt = "小吉"
+	}
 	return &model.Message{Body: txt}
 }
 
