@@ -64,7 +64,7 @@ func ReadMessage(c echo.Context) error {
 func UpdateMessage(c echo.Context) error {
 	// request.Message を用意する
 	// 受け取った json を request.Message として取得する
-
+  // TODO: atode
 	// model.Message を用意する
 	// 受け取った id を使って model.Message を取得する
 	// ヒント: model.Message.LoadMessage()
