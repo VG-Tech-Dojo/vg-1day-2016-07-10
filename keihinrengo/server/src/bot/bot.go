@@ -85,5 +85,6 @@ func NewShiritoriBot(out chan model.Message) (b *bot) {
 		Pattern: "^shiritori [あ-ん]+",
 	}
 	processer := &ShiritoriProcesser{}
+	processer.Init()
 	return NewBot(checker, processer, out)
 }

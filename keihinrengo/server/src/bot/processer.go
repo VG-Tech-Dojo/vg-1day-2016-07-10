@@ -96,9 +96,13 @@ func (p *ShiritoriProcesser) Init() {
 
 func (p *ShiritoriProcesser) Process(msgIn *model.Message) *model.Message {
 	s := strings.Fields(msgIn.Body)
-	head := s[1][0:3]
+	head := s[1][len(s[1])-3 : len(s[1])]
 	if candidates, ok := p.Dict[head]; ok {
-		ans := candidates[rand.Intn(len(candidates))]
+		ans := candidates[0]
+		p.Dict[head] = append(candidates[1:])
+		if len(p.Dict[head]) == 0 {
+			delete(p.Dict, head)
+		}
 		return &model.Message{Body: ans}
 	} else {
 		return &model.Message{Body: "参りました"}
