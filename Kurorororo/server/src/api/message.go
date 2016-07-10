@@ -64,19 +64,19 @@ func ReadMessage(c echo.Context) error {
 func UpdateMessage(c echo.Context) error {
 	// request.Message を用意する
 	var r request.Message
+	id, _ := strconv.Atoi(c.Param("id"))
 
 	// 受け取った json を request.Message として取得する
 	if err := c.Bind(&r); err != nil {
 		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		return err
 	}
-
 	// model.Message を用意する
-	var message *model.Message
+	var message model.Message
 
 	// 受け取った id を使って model.Message を取得する
 	// ヒント: model.Message.LoadMessage()
-	if err := message.LoadMessage(r.Id); err != nil {
+	if err := message.LoadMessage(id); err != nil {
 		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		return err
 	}
