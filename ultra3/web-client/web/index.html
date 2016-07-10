@@ -97,11 +97,15 @@
 <script src="js/message.js"></script>
 <script>
   // イベントの処理
+
   /**
    * 読み込み完了
    */
   $(document).ready(function () {
     reloadMessages();
+
+    emoji.sheet_path = "https://cdn.jsdelivr.net/js-emoji/0.1.0/sheet_64.png"
+    emoji.use_sheet = true
   });
 
   /**
