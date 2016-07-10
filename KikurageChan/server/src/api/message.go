@@ -23,7 +23,6 @@ func CreateMessage(c echo.Context) error {
 		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		return err
 	}
-
 	// メッセージをつくる
 	// 1-2. ユーザ名も渡すようにする
 	message, err := model.NewMessage(r.Body)
@@ -31,13 +30,11 @@ func CreateMessage(c echo.Context) error {
 		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		return err
 	}
-
 	// メッセージを保存する
 	if err := message.SaveMessage(); err != nil {
 		fmt.Fprintf(os.Stderr, "%+v\n", err)
 		return err
 	}
-
 	// メッセージを json で返す
 	return c.JSON(http.StatusCreated, message)
 }

@@ -121,7 +121,7 @@ func ObservableCreateMessage(ch chan model.Message) echo.HandlerFunc {
 
 		// メッセージをつくる
 		// 1-2. ユーザ名も渡すようにする
-		message, err := model.NewMessage(r.Body)
+		message, err := model.NewMessage(r.Body,"test")
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%+v\n", err)
 			return err

@@ -42,6 +42,7 @@ func Init() *echo.Echo {
 	e.PUT("/messages/:id", api.UpdateMessage)    // メッセージ更新
 	e.DELETE("/messages/:id", api.DeleteMessage) // メッセージ削除
 
+
 	return e
 }
 
@@ -61,6 +62,11 @@ func prepareBot() chan model.Message {
 	b2 := bot.NewGreetBot("another_bot", `^voyage`, p.Input)
 	go b2.Run()
 	broadcaster.EntryInput <- b2
+
+	//------------------
+	b4 := bot.NewUranaiBot("uranai_bot", `^uranai$`, p.Input)
+	go b4.Run()
+	broadcaster.EntryInput <- b4
 
 	b3 := bot.NewTimelineBot(p.Input)
 	go b3.Run()
