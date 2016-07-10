@@ -27,16 +27,17 @@ function appendMessage(message) {
     // Bodyをエスケープ
 
     _emojifiedText = emoji.replace_colons(message.body)
-    var escapeBody = $("<div/>").append(_emojifiedText).html();
+    var escapeBody = $("<div/>").append(_emojifiedText);
     var messageHTML =
         '<div class="media">' +
             '<div class="media-body">' +
                 //'<span class="media-message-name">名無しさん</span>  ' +
                 //'<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
-                '<span class="media-message-body">' + escapeBody + '</span>' +
+                '<span class="media-message-body">' + escapeBody.html() + '</span>' +
             '</div>' +
             '<div class="media-right">' +
-                '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
+                '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal"' +
+                  'data-target="#edit-modal" data-body="' + message.body + '" data-id="' + message.id + '">' +
                 '<span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>' +
             '</div>' +
         '</div>' +
