@@ -19,10 +19,15 @@ type (
 	EchoProcesser struct {
 	}
 
-	// Greetprocesser
+	// GreetProcesser
 	// 自身の名前で挨拶するProcesser
 	GreetProcesser struct {
 		Name string
+	}
+
+	// UranaiProcessor
+	// 占い用のProcessor
+	UranaiProcessor struct {
 	}
 
 	// TimelineProcesser
@@ -31,6 +36,11 @@ type (
 		Api *anaconda.TwitterApi
 	}
 )
+
+func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
+	// Do something
+	return &model.Message{Body: "Uranai"}
+}
 
 func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 	return &model.Message{Body: "[echo] " + msgIn.Body}
