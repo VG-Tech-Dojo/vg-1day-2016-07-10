@@ -63,6 +63,16 @@ func (*UranaiProcesser ) Process(msgIn *model.Message) *model.Message {
 	return &model.Message{Body: text}
 }
 
+// func (*WarikanProcesser ) Process(msgIn *model.Message) *model.Message {
+// 	var num int = 1
+// 	text := msgIn.Body
+// 	texts := Split(text, " " string)
+// 	for i:=1; i< len(texts);i+=1{
+//
+// 	}
+// 	return &model.Message{Body: text}
+// }
+
 func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 	if p.Api == nil {
 		return &model.Message{Body: "[timeline] api can not available"}

@@ -70,3 +70,12 @@ func NewUranaiBot(out chan model.Message) (b *bot){
 	// processer.Init()
 	return NewBot(checker, processer, out)
 }
+
+func NewWarikanBot(out chan model.Message) (b *bot){
+	checker := &RegexpChecker{
+		Pattern: `^warikan [1-9]+ [0-9]+`,
+	}
+	processer := &UranaiProcesser{}
+	// processer.Init()
+	return NewBot(checker, processer, out)
+}
