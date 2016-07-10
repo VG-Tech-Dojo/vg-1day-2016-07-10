@@ -26,10 +26,13 @@ function appendMessage(message) {
     // Bodyをエスケープ
     var escapeBody = $("<div/>").text(message.body).html();
     var escapeDate = "n/a"
+    var escateUsername = "名無しさん"
 
-    if (message.created_at) {
+    message.created_at &&
       escapeDate = moment(message.created_at).format('YYYY-MM-DD hh:mm:ss')
-    }
+
+    message.user_name &&
+      escapeUsername = message.user_name
 
     var messageHTML =
         '<div class="media">' +
