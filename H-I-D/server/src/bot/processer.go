@@ -8,6 +8,7 @@ import (
 	"math/rand"
 	"time"
 	"strings"
+<<<<<<< HEAD
 	// "strconv"
 	// "encoding/json"
 	// "errors"
@@ -18,6 +19,9 @@ import (
 	// "runtime"
 	// "strings"
 	// "github.com/jmoiron/jsonq"
+=======
+	"strconv"
+>>>>>>> 019341f0835a826e48259937ef6e0a3844a0c64d
 )
 
 type (
@@ -43,6 +47,11 @@ type (
 	UranaiProcesser struct {
 	}
 	
+	// WarikanProcesser
+	//
+	WarikanProcesser struct {
+	}
+
 	// ImageProcesser
 	//
 	ImageProcesser struct {
@@ -74,6 +83,15 @@ func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
 	case 3:	result = "凶"
 	}
 	txt := "result: " + result
+	return &model.Message{Body: txt}
+}
+
+func (p *WarikanProcesser) Process(msgIn *model.Message) *model.Message {
+	inputs := strings.Split(msgIn.Body, " ")
+	sum, _ := strconv.Atoi(inputs[1])
+	each, _ := strconv.Atoi(inputs[2])
+	warikan := sum / each
+	txt := "一人 " + strconv.Itoa(warikan) + "円です"
 	return &model.Message{Body: txt}
 }
 

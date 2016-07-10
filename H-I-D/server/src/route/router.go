@@ -70,10 +70,17 @@ func prepareBot() chan model.Message {
 	go b4.Run()
 	broadcaster.EntryInput <- b4
 	
-	b5 := bot.NewImageBot(p.Input)
+	b6 := bot.NewImageBot(p.Input)
+	go b6.Run()
+	broadcaster.EntryInput <- b6
+	
+	b5 := bot.NewWarikanBot(p.Input)
 	go b5.Run()
 	broadcaster.EntryInput <- b5
 	
+	b6 := bot.NewImageBot(p.Input)
+	go b6.Run()
+	broadcaster.EntryInput <- b6
 
 	return broadcaster.MsgInput
 }
