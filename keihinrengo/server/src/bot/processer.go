@@ -103,8 +103,8 @@ func (p *ShiritoriProcesser) Process(msgIn *model.Message) *model.Message {
 		if len(p.Dict[head]) == 0 {
 			delete(p.Dict, head)
 		}
-		return &model.Message{Body: ans}
+		return &model.Message{Body: ans, Username: "shiritoribot"}
 	} else {
-		return &model.Message{Body: "参りました"}
+		return &model.Message{Body: "参りました", Username: "shiritoribot"}
 	}
 }
