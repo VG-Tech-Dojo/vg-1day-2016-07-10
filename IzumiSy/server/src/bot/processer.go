@@ -35,7 +35,6 @@ type (
 	// WarikanProecssor
 	// 割り勘用のProcessor
 	WarikanProcessor struct {
-		Text string
 	}
 
 	// TimelineProcesser
