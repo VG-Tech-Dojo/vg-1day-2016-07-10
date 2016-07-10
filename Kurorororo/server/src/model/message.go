@@ -148,10 +148,15 @@ func (m *Message) LoadMessage(id int) error {
 // 1-4. データベースからメッセージを削除する
 func (m *Message) DeleteMessage() error {
 	// key を作る
+	key := fmt.Sprintf("message-%d", m.Id)
 	// メッセージ id = 1 のメッセージの key は "message-1"
 
 	// key を使ってデータベースからメッセージを削除する
 	// ヒント db.Delete()
+	err := db.Delete(key)
+	if err != nil {
+		return errors.Wrapf(err, "faild to delete record. key: %s", key)
+	}
 
 	if err := deleteMessageId(m.Id); err != nil {
 		return err
