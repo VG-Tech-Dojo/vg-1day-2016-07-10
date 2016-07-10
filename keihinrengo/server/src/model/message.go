@@ -2,11 +2,10 @@ package model
 
 import (
 	"db"
-
+	"time"
 	"encoding/json"
 	"fmt"
 	"sort"
-	"time"
 
 	"github.com/pkg/errors"
 )
@@ -18,7 +17,6 @@ type (
 		// CreatedAt string `json:"created_at"` // 1-1. メッセージの投稿時刻
 		CreatedAt string `json:"created_at"`
 		// Username  string `json:"user_name"`  // 1-2. ユーザ名
-		UserName string `json:"user_name"`
 	}
 	Messages []Message
 )
@@ -95,18 +93,22 @@ func deleteMessageId(id int) error {
 
 // メッセージをつくる
 // 1-2. ユーザ名を受け取ってメッセージをつくる
-func NewMessage(body string, user_name string) (*Message, error) {
+func NewMessage(body string) (*Message, error) {
 	id, err := newMessageId()
 	if err != nil {
 		return nil, err
 	}
 
+	var time string = time.Now().Format("2006/01/02 15:04:05")
+
+
+
+
 	return &Message{
 		Id:   id,
 		Body: body,
+		CreatedAt: time,
 		// 1-1. CreatedAt に時刻をセットする
-		CreatedAt: fmt.Sprintln(time.Now()),
-		UserName:  user_name,
 		// ヒント: https://golang.org/pkg/time/
 		// 1-2. Username にユーザ名をセットする
 	}, nil
@@ -148,15 +150,10 @@ func (m *Message) LoadMessage(id int) error {
 // 1-4. データベースからメッセージを削除する
 func (m *Message) DeleteMessage() error {
 	// key を作る
-	key := fmt.Sprintf("message-%d", m.Id)
 	// メッセージ id = 1 のメッセージの key は "message-1"
 
 	// key を使ってデータベースからメッセージを削除する
 	// ヒント db.Delete()
-	err := db.Delete(key)
-	if err != nil {
-		return errors.Wrapf(err, "faild to delete record. key: %s", key)
-	}
 
 	if err := deleteMessageId(m.Id); err != nil {
 		return err

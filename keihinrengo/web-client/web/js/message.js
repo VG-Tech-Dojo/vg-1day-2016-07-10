@@ -25,13 +25,11 @@ function appendMessages(data) {
 function appendMessage(message) {
     // Bodyをエスケープ
     var escapeBody = $("<div/>").text(message.body).html();
-		var escapeDate = $("<div/>").text(message.created_at).html();
-		var escapeMessage = $("<div/>").text(message.user_name).html();
     var messageHTML =
         '<div class="media">' +
             '<div class="media-body">' +
-                '<span class="media-message-name">' + escapeMessage + '</span>' + '<br>' +
-                '<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
+                //'<span class="media-message-name">名無しさん</span>  ' +
+                //'<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
                 '<span class="media-message-body">' + escapeBody + '</span>' +
             '</div>' +
             '<div class="media-right">' +
@@ -59,15 +57,14 @@ function reloadMessages() {
  * メッセージの投稿
  *
  * @param body
- * @param user_name
  */
-function sendMessage(body, user_name) {
+function sendMessage(body) {
     var success = function() {
         $(".message-body").val("");
         reloadMessages();
     };
     var error = function() { console.log("error") };
-    (new API()).postMessage(body, user_name, success, error);
+    (new API()).postMessage(body, success, error);
 }
 
 /**
@@ -96,3 +93,5 @@ function deleteMessage(id) {
     var error = function() { console.log("error") };
     (new API()).deleteMessage(id, success, error);
 }
+
+
