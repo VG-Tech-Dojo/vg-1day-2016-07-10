@@ -24,13 +24,25 @@ function appendMessages(data) {
  */
 function appendMessage(message) {
     // Bodyをエスケープ
+
+    var regexp = new RegExp("^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$");
     var escapeBody = $("<div/>").text(message.body).html();
-    var messageHTML =
-        '<div class="media">' +
-            '<div class="media-body">' +
+    var messageHTML = '<div class="media">' + '<div class="media-body">';
+
+        if (regexp.test(message.body)) 
+        {
+            var color = message.body.match(regexp);
+            messageHTML += '<span class="media-message-body" style="color:' + color[0] + '";>';
+        }
+        else
+        {
+            messageHTML += '<span class="media-message-body">';
                 //'<span class="media-message-name">名無しさん</span>  ' +
                 //'<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
-                '<span class="media-message-body">' + escapeBody + '</span>' +
+        }
+
+            messageHTML += escapeBody + '</span>' +
+
             '</div>' +
             '<div class="media-right">' +
                 '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
@@ -49,6 +61,7 @@ function reloadMessages() {
     var success = function(data) {
         appendMessages(data);
     };
+
     var error = function() { console.log("error") };
     (new API()).getMessages(success, error);
 }
@@ -63,6 +76,7 @@ function sendMessage(body) {
         $(".message-body").val("");
         reloadMessages();
     };
+
     var error = function() { console.log("error") };
     (new API()).postMessage(body, success, error);
 }
