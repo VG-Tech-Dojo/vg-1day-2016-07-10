@@ -39,7 +39,7 @@ type (
 
 func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
 	// Do something
-	return &model.Message{Body: "Uranai"}
+	return &model.Message{Body: "[bot] Uranai"}
 }
 
 func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
