@@ -32,17 +32,18 @@ class API {
      * POST: messages
      *
      * @param body
+     * @param user_name
      * @param success
      * @param error
      * @returns {*}
      */
-    postMessage(body, success, error) {
+    postMessage(body, user_name, success, error) {
         var postMessageUri = this.baseUrl + "messages";
         return $.ajax({
             type: "post",
             url: postMessageUri,
             contentType: "application/json",
-            data: JSON.stringify({body:body})
+            data: JSON.stringify({body:body,user_name:user_name})
         })
         .done(function(data) { success(); console.log(data) })
         .fail(function() { error() });
@@ -55,17 +56,18 @@ class API {
      *
      * @param id
      * @param body
+     * @param user_name
      * @param success
      * @param error
      * @returns {*}
      */
-    updateMessage(id, body, success, error) {
+    updateMessage(id, body, user_name, success, error) {
         var postMessageUri = this.baseUrl + "messages/" + id;
         return $.ajax({
                 type: "put",
                 url: postMessageUri,
                 contentType: "application/json",
-                data: JSON.stringify({body:body})
+                data: JSON.stringify({body:body,user_name:user_name})
             })
             .done(function(data) { success(); console.log(data) })
             .fail(function() { error() });
