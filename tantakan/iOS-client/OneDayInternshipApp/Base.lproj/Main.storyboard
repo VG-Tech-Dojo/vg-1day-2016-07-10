@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gro-bz-x0c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gro-bz-x0c">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -34,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="92" width="414" height="83"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WMm-NW-DjB" id="Flm-DN-Wy7">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="82.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="メッセージ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7g-mS-Ro7">
@@ -97,41 +98,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtH-Kz-5qh">
-                                <rect key="frame" x="361" y="28" width="36" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtH-Kz-5qh">
+                                <rect key="frame" x="358" y="28" width="36" height="30"/>
                                 <state key="normal" title="Send"/>
                                 <connections>
                                     <action selector="didTouchUpSendButton:" destination="bzD-xM-diJ" eventType="touchUpInside" id="bFe-f5-CaO"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bDb-Hs-2gW">
-                                <rect key="frame" x="20" y="112" width="374" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDb-Hs-2gW">
+                                <rect key="frame" x="20" y="114" width="374" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="QdA-sb-FoJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
                                 <connections>
                                     <outlet property="delegate" destination="bzD-xM-diJ" id="0lj-M2-osH"/>
                                 </connections>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xqi-PG-jWr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xqi-PG-jWr">
                                 <rect key="frame" x="20" y="28" width="39" height="30"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="didTouchUpCloseButton:" destination="bzD-xM-diJ" eventType="touchUpInside" id="PrZ-3R-hyJ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ユーザネーム" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nn-Rs-06z">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザネーム" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nn-Rs-06z">
                                 <rect key="frame" x="20" y="66" width="102" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6U1-gl-XM8">
-                                <rect key="frame" x="130" y="62" width="227" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6U1-gl-XM8">
+                                <rect key="frame" x="130" y="64" width="262" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bDb-Hs-2gW" firstAttribute="trailing" secondItem="OD9-Af-m5E" secondAttribute="trailingMargin" id="1gW-wz-crn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vtH-Kz-5qh" secondAttribute="trailing" id="5WE-Lb-9bZ"/>
+                            <constraint firstItem="6U1-gl-XM8" firstAttribute="leading" secondItem="4nn-Rs-06z" secondAttribute="trailing" constant="8" id="ADr-H9-6H5"/>
+                            <constraint firstItem="Xqi-PG-jWr" firstAttribute="leading" secondItem="OD9-Af-m5E" secondAttribute="leadingMargin" id="BUU-R1-Awm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6U1-gl-XM8" secondAttribute="trailing" constant="2" id="Ty3-bu-1gK"/>
+                            <constraint firstItem="4nn-Rs-06z" firstAttribute="leading" secondItem="OD9-Af-m5E" secondAttribute="leadingMargin" id="d0c-XJ-K8D"/>
+                            <constraint firstItem="4nn-Rs-06z" firstAttribute="top" secondItem="Xqi-PG-jWr" secondAttribute="bottom" constant="8" id="e5V-0g-WJS"/>
+                            <constraint firstItem="bDb-Hs-2gW" firstAttribute="top" secondItem="6U1-gl-XM8" secondAttribute="bottom" constant="20" id="fbD-Yx-4Yl"/>
+                            <constraint firstItem="Xqi-PG-jWr" firstAttribute="top" secondItem="gU7-Hj-Cdi" secondAttribute="bottom" constant="8" id="g7f-Uz-aBB"/>
+                            <constraint firstItem="bDb-Hs-2gW" firstAttribute="leading" secondItem="OD9-Af-m5E" secondAttribute="leadingMargin" id="gFd-jh-UDP"/>
+                            <constraint firstItem="6U1-gl-XM8" firstAttribute="baseline" secondItem="4nn-Rs-06z" secondAttribute="baseline" constant="1" id="jpb-1Z-UjW"/>
+                            <constraint firstItem="vtH-Kz-5qh" firstAttribute="top" secondItem="gU7-Hj-Cdi" secondAttribute="bottom" constant="8" id="uKS-xj-hd4"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -158,23 +176,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kVQ-tt-rKt">
-                                <rect key="frame" x="346" y="28" width="51" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kVQ-tt-rKt">
+                                <rect key="frame" x="343" y="28" width="51" height="30"/>
                                 <state key="normal" title="Update"/>
                                 <connections>
                                     <action selector="didTouchUpSendButton:" destination="PyV-WI-XVv" eventType="touchUpInside" id="mhC-S5-URs"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfT-9N-tpA">
-                                <rect key="frame" x="20" y="58" width="374" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfT-9N-tpA">
+                                <rect key="frame" x="20" y="58" width="374" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Bn0-Vl-cfb"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="PyV-WI-XVv" id="7yE-rk-z7K"/>
                                 </connections>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS3-88-Be4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lS3-88-Be4">
                                 <rect key="frame" x="20" y="28" width="39" height="30"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
@@ -183,6 +204,15 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qfT-9N-tpA" firstAttribute="trailing" secondItem="ikI-ku-MqM" secondAttribute="trailingMargin" id="41l-Fb-64Z"/>
+                            <constraint firstItem="lS3-88-Be4" firstAttribute="leading" secondItem="ikI-ku-MqM" secondAttribute="leadingMargin" id="DF9-o0-KvY"/>
+                            <constraint firstItem="qfT-9N-tpA" firstAttribute="top" secondItem="lS3-88-Be4" secondAttribute="bottom" id="G5X-Vo-qtp"/>
+                            <constraint firstItem="qfT-9N-tpA" firstAttribute="leading" secondItem="ikI-ku-MqM" secondAttribute="leadingMargin" id="NZw-42-eO8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kVQ-tt-rKt" secondAttribute="trailing" id="Njd-XD-KTy"/>
+                            <constraint firstItem="kVQ-tt-rKt" firstAttribute="top" secondItem="xAW-0W-SoN" secondAttribute="bottom" constant="8" id="Pg4-7L-dsE"/>
+                            <constraint firstItem="lS3-88-Be4" firstAttribute="top" secondItem="xAW-0W-SoN" secondAttribute="bottom" constant="8" id="uJS-BY-yZe"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>

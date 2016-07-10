@@ -27,6 +27,11 @@ class PostViewController: UIViewController, UITextViewDelegate {
         if self.message?.body.characters.count > 0 {
             self.messageTextView.text = self.message?.body
         }
+        
+        // messageTextView の整形
+        messageTextView.layer.borderWidth = 1
+        messageTextView.layer.borderColor = UIColor.blackColor().CGColor
+        messageTextView.layer.cornerRadius = 8
     }
     
     func postAndCloseWithMessageBody(messageBody: String, sender: AnyObject) {
