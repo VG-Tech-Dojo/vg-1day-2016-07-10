@@ -3,8 +3,10 @@ package bot
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
+	"math/rand"
 	"model"
 	"net/url"
+	"time"
 )
 
 type (
@@ -65,6 +67,12 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 }
 
 func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
-	txt := "うらないするよ！！！"
+	rand.Seed(time.Now().UnixNano())
+	luck := []string{
+		"大吉",
+		"吉",
+		"凶",
+	}
+	txt := fmt.Sprintf("[uranai] あなたの運勢は %s です", luck[rand.Intn(len(luck))])
 	return &model.Message{Body: txt}
 }
