@@ -7,6 +7,8 @@ import (
 	"net/url"
 	"math/rand"
 	"time"
+	"strings"
+	"strconv"
 )
 
 type (
@@ -28,6 +30,9 @@ type (
 	}
 
 	UranaiProcesser struct {
+	}
+
+	WarikanProcesser struct {
 	}
 
 	// TimelineProcesser
@@ -60,7 +65,20 @@ func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
 	case 3:
 		txt = "小吉"
 	}
-	return &model.Message{Body: txt}
+	return &model.Message{Body: txt + msgIn.Body}
+}
+
+func (p *WarikanProcesser) Process(msgIn *model.Message) *model.Message {
+	data := strings.Fields(msgIn.Body)
+	total, err := strconv.Atoi(data[1])
+	if err != nil {
+		fmt.Print(err)
+	}
+	number, err := strconv.Atoi(data[2])
+	if err != nil {
+		fmt.Print(err)
+	}
+	return &model.Message{Body: "一人" + strconv.Itoa(total/number) + "円です"}
 }
 
 func (p *TimelineProcesser) Init() {
