@@ -33,7 +33,7 @@ function appendMessage(message) {
                 '<span class="media-message-name">'+ escapeName +'</span>   ' +
                 // '<span class="media-message-date">' + escapeDate + '</span>' + '<br>' +
                 '<span class="media-message-body">' + escapeBody + '</span>' +
-                '<span class="media-message-created_at">作成日: ' + message.created_at + '</span>' +
+                '<span class="media-message-created_at">   作成日: ' + message.created_at + '</span>' +
             '</div>' +
             '<div class="media-right">' +
                 '<button type="button" class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#edit-modal" data-body="' + escapeBody + '" data-id="' + message.id +'">' +
@@ -61,13 +61,13 @@ function reloadMessages() {
  *
  * @param body
  */
-function sendMessage(body) {
+function sendMessage(body, user_name) {
     var success = function() {
         $(".message-body").val("");
         reloadMessages();
     };
     var error = function() { console.log("error") };
-    (new API()).postMessage(body, success, error);
+    (new API()).postMessage(body, user_name, success, error);
 }
 
 /**
@@ -76,12 +76,12 @@ function sendMessage(body) {
  * @param id
  * @param body
  */
-function updateMessage(id, body) {
+function updateMessage(id, body, user_name) {
     var success = function() {
         reloadMessages();
     };
     var error = function() { console.log("error") };
-    (new API()).updateMessage(id, body, success, error);
+    (new API()).updateMessage(id, body, user_name, success, error);
 }
 
 /**
