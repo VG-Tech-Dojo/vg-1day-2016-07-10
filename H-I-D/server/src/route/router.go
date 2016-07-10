@@ -4,7 +4,6 @@ import (
 	"api"
 	"bot"
 	"model"
-
 	"net/http"
 	"sync"
 
@@ -73,6 +72,10 @@ func prepareBot() chan model.Message {
 	b5 := bot.NewWarikanBot(p.Input)
 	go b5.Run()
 	broadcaster.EntryInput <- b5
+	
+	b6 := bot.NewImageBot(p.Input)
+	go b6.Run()
+	broadcaster.EntryInput <- b6
 
 	return broadcaster.MsgInput
 }
