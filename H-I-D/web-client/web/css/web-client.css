@@ -41,3 +41,8 @@ body {
     font-size: 14px;
     font-weight: normal;
 }
+
+img {
+    max-height: 300px;
+    max-width: 300px;
+}
