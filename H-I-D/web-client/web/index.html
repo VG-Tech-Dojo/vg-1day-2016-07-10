@@ -48,6 +48,8 @@
         <h4 class="modal-title" id="postModalLabel">投稿</h4>
       </div>
       <div class="modal-body">
+        ユーザー名
+        <p><textarea class="form-control message-user_name" rows="1"></textarea></p>
         メッセージ
         <p><textarea class="form-control message-body" rows="3"></textarea></p>
       </div>
@@ -71,6 +73,10 @@
         <form>
           <div class="form-group">
             <input type="hidden" class="form-control" id="message-id">
+          </div>
+          <div class="form-group">
+            <label for="update-message-user_name" class="control-label">ユーザ名</label>
+            <textarea class="form-control" id="update-message-user_name"></textarea>
           </div>
           <div class="form-group">
             <label for="update-message-body" class="control-label">メッセージ</label>
@@ -109,9 +115,12 @@
     var button = $(event.relatedTarget);
     var body = button.data('body');
     var id = button.data('id');
+    var user_name = button.data('user_name');
 
     $(this).find('.modal-body textarea#update-message-body').val(body);
+    $(this).find('.modal-body textarea#update-message-user_name').val(user_name);
     $(this).find('.modal-body input#message-id').val(id);
+    
   });
 
   /**
@@ -120,7 +129,8 @@
   $("#post-message").click(function() {
     $("#postModal").modal("hide");
     var body = $(".message-body").val();
-    sendMessage(body);
+    var user_name = $(".message-user_name").val();
+    sendMessage(body, user_name);
   });
 
   /**
@@ -130,7 +140,8 @@
     $("#edit-modal").modal("hide");
     var id = $("#edit-modal").find('.modal-body input#message-id').val();
     var body = $("#edit-modal").find('.modal-body textarea#update-message-body').val();
-    updateMessage(id, body);
+    var user_name = $("#edit-modal").find('.modal-body textarea#update-message-user_name').val();
+    updateMessage(id, body, user_name);
   });
 
   /**

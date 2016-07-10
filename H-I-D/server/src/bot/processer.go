@@ -5,6 +5,10 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"model"
 	"net/url"
+	"math/rand"
+	"time"
+	"strings"
+	"strconv"
 )
 
 type (
@@ -24,6 +28,16 @@ type (
 	GreetProcesser struct {
 		Name string
 	}
+	
+	// UranaiProcesser
+	//
+	UranaiProcesser struct {
+	}
+	
+	// WarikanProcesser
+	//
+	WarikanProcesser struct {
+	}
 
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
@@ -38,6 +52,28 @@ func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 
 func (p *GreetProcesser) Process(msgIn *model.Message) *model.Message {
 	txt := "[greet] nice to meet you! my name is " + p.Name
+	return &model.Message{Body: txt}
+}
+
+func (p *UranaiProcesser) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+	result := "大吉"
+	switch rand.Intn(4) {
+	case 0:	result = "中吉"
+	case 1:	result = "吉"
+	case 2:	result = "末吉"
+	case 3:	result = "凶"
+	}
+	txt := "result: " + result
+	return &model.Message{Body: txt}
+}
+
+func (p *WarikanProcesser) Process(msgIn *model.Message) *model.Message {
+	inputs := strings.Split(msgIn.Body, " ")
+	sum, _ := strconv.Atoi(inputs[1])
+	each, _ := strconv.Atoi(inputs[2])
+	warikan := sum / each
+	txt := "一人 " + strconv.Itoa(warikan) + "円です"
 	return &model.Message{Body: txt}
 }
 

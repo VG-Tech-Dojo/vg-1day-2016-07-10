@@ -3,8 +3,12 @@ package bot
 import (
 	"fmt"
 	"github.com/ChimeraCoder/anaconda"
+	"math/rand"
 	"model"
 	"net/url"
+	"strconv"
+	"strings"
+	"time"
 )
 
 type (
@@ -19,10 +23,20 @@ type (
 	EchoProcesser struct {
 	}
 
-	// Greetprocesser
+	// GreetProcesser
 	// 自身の名前で挨拶するProcesser
 	GreetProcesser struct {
 		Name string
+	}
+
+	// UranaiProcessor
+	// 占い用のProcessor
+	UranaiProcessor struct {
+	}
+
+	// WarikanProecssor
+	// 割り勘用のProcessor
+	WarikanProcessor struct {
 	}
 
 	// TimelineProcesser
@@ -31,6 +45,43 @@ type (
 		Api *anaconda.TwitterApi
 	}
 )
+
+func (p *WarikanProcessor) Process(msgIn *model.Message) *model.Message {
+	_params := strings.Split(msgIn.Body, " ")
+	var _result string
+
+	if len(_params) != 3 {
+		return &model.Message{Body: "割り勘はできなそうですね"}
+	}
+
+	_baseAmount, _ := strconv.Atoi(_params[1])
+	_division, _ := strconv.Atoi(_params[2])
+
+	if _baseAmount <= 0 || _division <= 0 {
+		return &model.Message{Body: "割り勘できません"}
+	}
+
+	_result = fmt.Sprintf("一人%d円です", (_baseAmount / _division))
+
+	return &model.Message{Body: _result}
+}
+
+func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
+	rand.Seed(time.Now().UnixNano())
+
+	var _result string
+	switch rand.Intn(2) {
+	case 0:
+		_result = "大吉"
+	case 1:
+		_result = "吉"
+	case 2:
+	default:
+		_result = "凶"
+	}
+
+	return &model.Message{Body: _result}
+}
 
 func (p *EchoProcesser) Process(msgIn *model.Message) *model.Message {
 	return &model.Message{Body: "[echo] " + msgIn.Body}

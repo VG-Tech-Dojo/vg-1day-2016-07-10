@@ -52,6 +52,22 @@ func NewGreetBot(name string, pattern string, out chan model.Message) (b *bot) {
 	return NewBot(checker, processer, out)
 }
 
+func NewUranaiBot(out chan model.Message) (b *bot) {
+	checker := &RegexpChecker{
+		Pattern: "^uranai",
+	}
+	processer := &UranaiProcesser{}
+	return NewBot(checker, processer, out)
+}
+
+func NewWarikanBot(out chan model.Message) (b *bot) {
+	checker := &RegexpChecker{
+		Pattern: "^warikan",
+	}
+	processer := &WarikanProcesser{}
+	return NewBot(checker, processer, out)
+}
+
 func NewTimelineBot(out chan model.Message) (b *bot) {
 	checker := &RegexpChecker{
 		Pattern: `^timeline`,
