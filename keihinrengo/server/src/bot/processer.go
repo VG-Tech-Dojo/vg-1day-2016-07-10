@@ -38,12 +38,8 @@ type (
 		Api *anaconda.TwitterApi
 	}
 
-	WordList struct {
-		Words []string
-	}
-
 	ShiritoriProcesser struct {
-		Dict map[string]WordList
+		Dict map[string][]string
 	}
 )
 
@@ -92,12 +88,9 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 }
 
 func (p *ShiritoriProcesser) Init() {
-	p.Dict = map[string]string{
-		"あ": Wordlist{
-			"words": {
-				"あんこ",
-			},
-		},
+	p.Dict = make(map[string][]string)
+	p.Dict["あ"] = []string{
+		"あんこ",
 	}
 }
 
@@ -105,7 +98,7 @@ func (p *ShiritoriProcesser) Process(msgIn *model.Message) *model.Message {
 	s := strings.Fields(msgIn.Body)
 	head := s[1][0:3]
 	if candidates, ok := p.Dict[head]; ok {
-		ans := candidates.words[rand.Intn(len(candidates))]
+		ans := candidates[rand.Intn(len(candidates))]
 		return &model.Message{Body: ans}
 	} else {
 		return &model.Message{Body: "参りました"}
