@@ -16,7 +16,7 @@ type (
 		Id        int    `json:"id"`
 		Body      string `json:"body"`
 		CreatedAt string `json:"created_at"` // 1-1. メッセージの投稿時刻
-		// Username  string `json:"user_name"`  // 1-2. ユーザ名
+		Username  string `json:"user_name"`  // 1-2. ユーザ名
 	}
 	Messages []Message
 )
