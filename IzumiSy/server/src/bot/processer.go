@@ -32,12 +32,23 @@ type (
 	UranaiProcessor struct {
 	}
 
+	// WarikanProecssor
+	// 割り勘用のProcessor
+	WarikanProcessor struct {
+		Args string
+	}
+
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
 		Api *anaconda.TwitterApi
 	}
 )
+
+func (p *WarikanProcessor) Process(msgIn *model.Message) *model.Message {
+	// Do warikan
+	return &model.Message{Body: "[Warikan] do!!"}
+}
 
 func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
 	rand.Seed(time.Now().UnixNano())
