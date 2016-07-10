@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"sort"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -98,11 +99,12 @@ func NewMessage(body string) (*Message, error) {
 		return nil, err
 	}
 
+	_createdAt := (time.Now()).String()
+
 	return &Message{
-		Id:   id,
-		Body: body,
-		// 1-1. CreatedAt に時刻をセットする
-		// ヒント: https://golang.org/pkg/time/
+		Id:        id,
+		Body:      body,
+		CreatedAt: _createdAt,
 		// 1-2. Username にユーザ名をセットする
 	}, nil
 }
