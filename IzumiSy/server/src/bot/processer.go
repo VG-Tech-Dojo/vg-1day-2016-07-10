@@ -6,6 +6,8 @@ import (
 	"math/rand"
 	"model"
 	"net/url"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -45,8 +47,18 @@ type (
 )
 
 func (p *WarikanProcessor) Process(msgIn *model.Message) *model.Message {
-	// Do warikan
-	return &model.Message{Body: "[Warikan] do!!"}
+	_params := strings.Split(msgIn.Body, " ")
+	var _result string
+
+	if len(_params) == 3 {
+		_baseAmount, _ := strconv.Atoi(_params[1])
+		_division, _ := strconv.Atoi(_params[2])
+		_result = fmt.Sprintf("一人%d円です", (_baseAmount / _division))
+
+	} else {
+		_result = "[Warikan] Error"
+	}
+	return &model.Message{Body: _result}
 }
 
 func (p *UranaiProcessor) Process(msgIn *model.Message) *model.Message {
