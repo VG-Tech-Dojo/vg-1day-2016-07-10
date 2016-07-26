@@ -2,10 +2,10 @@ package model
 
 import (
 	"db"
-	"time"
 	"encoding/json"
 	"fmt"
 	"sort"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -16,7 +16,7 @@ type (
 		Body string `json:"body"`
 		// CreatedAt string `json:"created_at"` // 1-1. メッセージの投稿時刻
 		CreatedAt string `json:"created_at"`
-		// Username  string `json:"user_name"`  // 1-2. ユーザ名
+		Username  string `json:"user_name"` // 1-2. ユーザ名
 	}
 	Messages []Message
 )
@@ -93,7 +93,7 @@ func deleteMessageId(id int) error {
 
 // メッセージをつくる
 // 1-2. ユーザ名を受け取ってメッセージをつくる
-func NewMessage(body string) (*Message, error) {
+func NewMessage(body string, username string) (*Message, error) {
 	id, err := newMessageId()
 	if err != nil {
 		return nil, err
@@ -101,13 +101,11 @@ func NewMessage(body string) (*Message, error) {
 
 	var time string = time.Now().Format("2006/01/02 15:04:05")
 
-
-
-
 	return &Message{
-		Id:   id,
-		Body: body,
+		Id:        id,
+		Body:      body,
 		CreatedAt: time,
+		Username:  username,
 		// 1-1. CreatedAt に時刻をセットする
 		// ヒント: https://golang.org/pkg/time/
 		// 1-2. Username にユーザ名をセットする

@@ -2,11 +2,13 @@ package bot
 
 import (
 	"fmt"
-	"time"
 	"math/rand"
-	"github.com/ChimeraCoder/anaconda"
 	"model"
 	"net/url"
+	"strings"
+	"time"
+
+	"github.com/ChimeraCoder/anaconda"
 )
 
 type (
@@ -28,13 +30,16 @@ type (
 	}
 
 	UranaiProcesser struct {
-
 	}
 
 	// TimelineProcesser
 	// homeのtimelineのtweetを1つ取得するProcesser
 	TimelineProcesser struct {
 		Api *anaconda.TwitterApi
+	}
+
+	ShiritoriProcesser struct {
+		Dict map[string][]string
 	}
 )
 
@@ -51,27 +56,20 @@ func (p *TimelineProcesser) Init() {
 	p.Api = getTwitterApi()
 }
 
-func (*UranaiProcesser ) Process(msgIn *model.Message) *model.Message {
+func (*UranaiProcesser) Process(msgIn *model.Message) *model.Message {
 	rand.Seed(time.Now().UnixNano())
 	random := rand.Intn(3)
-	text:= ""
+	text := ""
 	switch random {
-	case 0: text = "大吉"
-	case 1: text = "吉"
-	case 2: text = "凶"
+	case 0:
+		text = "大吉"
+	case 1:
+		text = "吉"
+	case 2:
+		text = "凶"
 	}
 	return &model.Message{Body: text}
 }
-
-// func (*WarikanProcesser ) Process(msgIn *model.Message) *model.Message {
-// 	var num int = 1
-// 	text := msgIn.Body
-// 	texts := Split(text, " " string)
-// 	for i:=1; i< len(texts);i+=1{
-//
-// 	}
-// 	return &model.Message{Body: text}
-// }
 
 func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 	if p.Api == nil {
@@ -87,4 +85,26 @@ func (p *TimelineProcesser) Process(msgIn *model.Message) *model.Message {
 
 	tweet := timeline[0]
 	return &model.Message{Body: fmt.Sprintf("[timeline:%s] %s", tweet.User.Name, tweet.Text)}
+}
+
+func (p *ShiritoriProcesser) Init() {
+	p.Dict = make(map[string][]string)
+	p.Dict["あ"] = []string{
+		"あんこ",
+	}
+}
+
+func (p *ShiritoriProcesser) Process(msgIn *model.Message) *model.Message {
+	s := strings.Fields(msgIn.Body)
+	head := s[1][len(s[1])-3 : len(s[1])]
+	if candidates, ok := p.Dict[head]; ok {
+		ans := candidates[0]
+		p.Dict[head] = append(candidates[1:])
+		if len(p.Dict[head]) == 0 {
+			delete(p.Dict, head)
+		}
+		return &model.Message{Body: ans, Username: "shiritoribot"}
+	} else {
+		return &model.Message{Body: "参りました", Username: "shiritoribot"}
+	}
 }

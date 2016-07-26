@@ -62,7 +62,7 @@ func NewTimelineBot(out chan model.Message) (b *bot) {
 }
 
 ///////
-func NewUranaiBot(out chan model.Message) (b *bot){
+func NewUranaiBot(out chan model.Message) (b *bot) {
 	checker := &RegexpChecker{
 		Pattern: `^uranai`,
 	}
@@ -71,11 +71,20 @@ func NewUranaiBot(out chan model.Message) (b *bot){
 	return NewBot(checker, processer, out)
 }
 
-func NewWarikanBot(out chan model.Message) (b *bot){
+func NewWarikanBot(out chan model.Message) (b *bot) {
 	checker := &RegexpChecker{
 		Pattern: `^warikan [1-9]+ [0-9]+`,
 	}
 	processer := &UranaiProcesser{}
 	// processer.Init()
+	return NewBot(checker, processer, out)
+}
+
+func NewShiritoriBot(out chan model.Message) (b *bot) {
+	checker := &RegexpChecker{
+		Pattern: "^shiritori [あ-ん]+",
+	}
+	processer := &ShiritoriProcesser{}
+	processer.Init()
 	return NewBot(checker, processer, out)
 }
